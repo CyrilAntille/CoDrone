@@ -5,9 +5,6 @@ void setup() {
   CoDrone.AutoConnect(NearbyDrone);
   CoDrone.DroneModeChange(Flight);  //Set the drone to flight mode
   
-  CoDrone.FlightEvent(TakeOff);     // Perform a TakeOff maneuver 
-  delay(2000);                    //Wait 2 seconds for the maneuver to complete
-  
 }
 
 // THROTTLE (controls vertical speed, positive increases height, negative decreases height), 
@@ -20,16 +17,12 @@ void loop() {
   byte bt1 = digitalRead(11);
   byte bt4 = digitalRead(14);
   byte bt8 = digitalRead(18);
- 
   if (bt1 && !bt4 && !bt8)
   {
     CoDrone.FlightEvent(Stop);
   }
   
-  THROTTLE = -10;                //Set the throttle to 100
-  PITCH = 0;                             //Set the pitch to 30
-  CoDrone.Control(SEND_INTERVAL);              //Send the commands to the CoDrone
-  bool isEmpty = CoDrone.LowBatteryCheck(40);
+  bool isEmpty = CoDrone.LowBatteryCheck(10);
   if (isEmpty == false)
   {
     CoDrone.FlightEvent(Landing);
